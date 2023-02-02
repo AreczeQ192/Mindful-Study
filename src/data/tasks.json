@@ -1,0 +1,4 @@
+[
+    { "id": 0, "title": "Task 1", "isCompleted": false, "newTaskName": "" },
+    { "id": 1, "title": "Task 2", "isCompleted": true, "newTaskName": "ww" }
+]

@@ -1,0 +1,111 @@
+*{
+    /* margin: 0; */
+    /* padding: 0; */
+    box-sizing: border-box;
+}
+
+.calendarWeek{
+    margin: 0.5rem 0 0 60px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.day{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: none;
+}
+
+.calendarWeekDay{
+    margin: 1rem 0 0 60px;
+    display: flex;
+    justify-content: center;
+    /* gap: 6px; */
+}
+
+.weekDay{
+    width: calc(2.5rem + 6px);
+    /* height: 2.5rem; */
+    /* border-radius: 50%; */
+    border: none;
+    font-size: 0.65em;
+    background-color: rgb(141, 141, 141);
+}
+
+.today{
+    background-color: aquamarine;
+    border: 1px solid black;
+}
+
+.todayWeekDay{
+    display: grid;
+    text-align: center;
+    align-items: center;
+    color: aquamarine;
+    font-size: 1em;
+    text-shadow: 
+    -1px -1px 0px #000,
+    0px -1px 0px #000,
+    1px -1px 0px #000,
+    -1px  0px 0px #000,
+    1px  0px 0px #000,
+    -1px  1px 0px #000,
+    0px  1px 0px #000,
+    1px  1px 0px #000;
+}
+
+.planContainer{
+    height: calc(100vh - 135px);
+    margin: 40px 0 0 0;
+    position: relative;
+    overflow-x: auto;
+}
+
+.planBackground{
+    position: absolute;
+    opacity: 0.75;
+    z-index: -1;
+    width: 100%;
+    display: grid;
+    row-gap: 10px;
+    /* margin-top: 15px; */
+}
+
+.planBackgroundElement{
+    height: 50px;
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+    padding: 4px 0;
+}
+
+.plan{
+    margin: 0 0 0 60px;
+    padding: 0 20px;
+    gap: 10px;
+    /* background-color: blueviolet; */
+    height: 10px;
+}
+
+.event{
+    position: absolute;
+    /* left: 65px; */
+    /* top: 0; */
+    /* right: 15px; */
+    /* bottom: 0; */
+    /* margin-left: 15px; */
+    background-color: rgba(85, 255, 255, 0.75);
+    /* opacity: 0.25; */
+    border-radius: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.75);
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+    /* text-align: center; */
+    /* transform: translate(0, 20px); */
+}
+
+.event > p {
+    margin: 0;
+}

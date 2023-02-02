@@ -1,0 +1,65 @@
+.todoItem {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 15px 20px;
+    padding: 15px;
+}
+  
+.todoItem>h3{
+    margin: 0 0 10px 0;
+}
+  
+.completed{
+    opacity: 5;
+    /* background-color: aquamarine; */
+}
+
+.completed>.section>.taskName>button{
+    background-color: blue;
+}
+
+.section{
+    display: flex;
+    justify-content: space-between;
+}
+
+.taskName{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.changeStateButton{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.showDetailsButton{
+    padding: 4px;
+    display: grid;
+    align-items: center;
+    opacity: 0.785;
+    border: 1px solid black;
+    border-radius: 6px;
+}
+.buttonImage{
+    width: 20px;
+    height: 20px;
+}
+
+.details{
+    display: none;
+    margin: 20px 0 0 0;
+    row-gap: 10px;
+    padding: 0 10px;
+}
+
+.showDetails>.details{
+    display: grid;
+}
+
+.changeNameDiv{
+    display: flex;
+    justify-content: space-between;
+}
