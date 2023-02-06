@@ -13,3 +13,15 @@ footer{
     justify-content: center;
     gap: 15px;
 }
+
+main{
+    margin-top: 15px;
+    height: 100%;
+}
+
+.container{
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
