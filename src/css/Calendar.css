@@ -5,10 +5,11 @@
 }
 
 .calendarWeek{
-    margin: 0.5rem 0 0 60px;
+    /* margin: 0.5rem 0 0 60px; */
+    margin: 0.5rem 0 0 0px;
     display: flex;
     justify-content: center;
-    gap: 6px;
+    gap: 7px;
 }
 
 .day{
@@ -19,10 +20,11 @@
 }
 
 .calendarWeekDay{
-    margin: 1rem 0 0 60px;
+    /* margin: 1rem 0 0 60px; */
+    margin: 1rem 0 0 0px;
     display: flex;
     justify-content: center;
-    /* gap: 6px; */
+    gap: 1px;
 }
 
 .weekDay{
@@ -57,8 +59,8 @@
 }
 
 .planContainer{
-    height: calc(100vh - 135px);
-    margin: 40px 0 0 0;
+    height: calc(100vh - 243px);
+    margin: 40px 5px 0 5px;
     position: relative;
     overflow-x: auto;
 }
