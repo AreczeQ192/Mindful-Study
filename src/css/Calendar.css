@@ -59,7 +59,7 @@
 }
 
 .planContainer{
-    height: calc(100vh - 243px);
+    height: calc(100vh - 258px);
     margin: 40px 5px 0 5px;
     position: relative;
     overflow-x: auto;
