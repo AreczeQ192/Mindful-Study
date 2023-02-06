@@ -3,12 +3,18 @@ import { useState } from 'react'
 import './App.css'
 import Todo from './components/Todo'
 import Calendar from './components/Calendar'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 
 
 function App() {
   return (
-    // <Todo />
+    <>
+    <Navbar />
+    {/* <Todo /> */}
     <Calendar />
+    <Footer />
+    </> 
   )
 }
 
