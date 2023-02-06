@@ -119,7 +119,7 @@ class Todo extends React.Component{
                 <input type="text" name="" id="" onChange={this.eventHandler.bind(this)} value={this.state.taskName}/>
                 <button onClick={this.addTask.bind(this)}>Add task</button>
             </div>
-            <div>
+            <div className="toDoContainer">
                 {todoItems}
             </div>
             </>
