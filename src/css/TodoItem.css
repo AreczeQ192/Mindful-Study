@@ -2,13 +2,19 @@
     border: 1px solid black;
     border-radius: 10px;
     margin: 15px 20px;
-    padding: 15px;
+    padding: 10px;
 }
   
 .todoItem>h3{
     margin: 0 0 10px 0;
 }
-  
+
+.toDoContainer{
+    margin-top: 30px;
+    height: calc(100vh - 301px);
+    overflow-x: auto;
+}
+
 .completed{
     opacity: 5;
     /* background-color: aquamarine; */
@@ -27,12 +33,14 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    margin-left: 10px;
 }
 
 .changeStateButton{
     width: 15px;
     height: 15px;
     border-radius: 50%;
+    border: 1px solid black;
 }
 
 .showDetailsButton{
@@ -50,16 +58,40 @@
 
 .details{
     display: none;
-    margin: 20px 0 0 0;
-    row-gap: 10px;
-    padding: 0 10px;
+    
+    /* padding: 0 10px; */
 }
 
 .showDetails>.details{
     display: grid;
+    row-gap: 14px;
+    margin: 20px 30px 0 30px;
 }
 
 .changeNameDiv{
     display: flex;
     justify-content: space-between;
+}
+
+.changeNameDiv > input{
+    border: 1px solid black;
+    border-radius: 6px;
+}
+
+.changeNameDiv > button{
+    border: 1px solid black;
+    padding: 3px;
+    border-radius: 6px;
+}
+
+.terminDiv{
+    display: grid;
+    row-gap: 5px;
+}
+
+.terminDiv > input{
+    width: 15em;
+    border: 1px solid black;
+    padding: 3px;
+    border-radius: 6px;
 }
