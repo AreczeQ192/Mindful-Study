@@ -1,20 +1,24 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useState } from 'react'
 import "../css/Calendar.css"
 
 export default function Calendar() {
-
     let newDate = new Date()
-    // const testDay = [8, 1]
-    // newDate.setMonth(testDay[1] - 1)
-    // newDate.setDate(testDay[0])
+
+    // set date to 10.06.2023
+    newDate.setMonth(5)
+    newDate.setDate(6)
 
     let date = newDate.getDate()
-    let month = newDate.getMonth() + 1
-    // let year = newDate.getFullYear()
+    let month = newDate.getMonth() // + 1
+    let year = newDate.getFullYear()
     let day = newDate.getDay()
 
+    const [planDay, setPlanDay] = useState([date, month, year])
+
     if(day == 0) day = 7
+
+    const currentDay = useRef(date)
 
     // #region Week
     function lastDayOfMonth(month) {
@@ -28,52 +32,100 @@ export default function Calendar() {
       return 31
     }
 
-    function getWeek(date, day, month) {
+    function getWeek(date, day, month, year) {
       const week = []
+      const dayOfWeek = ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun']
       let firstDayofWeek = date - day + 1
 
       for(let i = 0; i < 7; i++){
         const _day = firstDayofWeek + i
         
-        if(_day > lastDayOfMonth(month)){               // day cannot be greater than 31
-          week.push(_day - lastDayOfMonth(month))     
+        if(_day > lastDayOfMonth(month)){             // day cannot be greater than 31
+          week.push({
+            id: i,
+            date: _day - lastDayOfMonth(month),
+            month: month == 11 ? 0 : month + 1,
+            year: month == 11 ? year + 1 : year,
+            day: dayOfWeek[i]
+          })     
         }
-        else if(_day <= 0){                             // day must be greater than 0
+        else if(_day <= 0){                           // day must be greater than 0
           if(month == 0)
-          week.push(_day + 31)
+          week.push({
+            id: i,
+            date: _day + 31,
+            month: 11,
+            year: year - 1,
+            day: dayOfWeek[i]
+          })
           else
-          week.push(_day + lastDayOfMonth(month - 1))
+          week.push({
+            id: i,
+            date: _day + lastDayOfMonth(month - 1),
+            month: month - 1,
+            year: year,
+            day: dayOfWeek[i]
+          })
         }
-        else
-        week.push(_day)                                 // casual case
+        else{
+          week.push({                                 // casual case
+            id: i,
+            date: _day,
+            month: month,
+            year: year,
+            day: dayOfWeek[i]
+          })                               
+        }
       }
 
-      let i = 0
-      const _week = week.map(el => {
-        i++ 
-        return <button key={i - 1} className={`day ${day == (i) ? 'today' : ''}`}>{week[i - 1]}</button>
-      })
-
-      return _week
+      return week
     }
-    
-    const week = getWeek(date, day, month - 1)
-    const _weekDay = [
-      {name: 'Mon', id: 0},
-      {name: 'Tue', id: 1},
-      {name: 'Wen', id: 2},
-      {name: 'Thu', id: 3},
-      {name: 'Fri', id: 4},
-      {name: 'Sat', id: 5},
-      {name: 'Sun', id: 6},
-    ]
-    
 
+    let i = 0
+
+    const _week = getWeek(date, day, month, year)
+    console.log(_week)
+    const week = _week.map(el => {
+      i++ 
+      const id = i - 1
+      return (
+      <div className='week'>
+        <div className='calendarWeekDay'>
+          <button className={`weekDay ${el.id + 1 == day ? 'todayWeekDay' : ''}`}>{el.day}</button>
+        </div>
+        <div>
+          <button 
+            key={id} 
+            className={`day ${day == (i) ? 'today' : ''}`}
+            onClick={() => {switchWeekDay(_week[id].date, _week[id].month, _week[id].year)}}
+          >
+            {_week[id].date}
+          </button>
+        </div>
+      </div>
+      )
+    })
+    
     // #endregion
 
-    const weekDay = _weekDay.map(el => {
-      return <button key={el.id} className={`weekDay ${day == el.id + 1 ? 'todayWeekDay' : ''}`}>{el.name}</button>
-    })
+
+    // const _weekDay = [
+    //   {name: 'Mon', id: 0},
+    //   {name: 'Tue', id: 1},
+    //   {name: 'Wen', id: 2},
+    //   {name: 'Thu', id: 3},
+    //   {name: 'Fri', id: 4},
+    //   {name: 'Sat', id: 5},
+    //   {name: 'Sun', id: 6},
+    // ]
+
+    // const weekDay = _weekDay.map(el => {
+    //   return (
+    //     <>
+    //     <button key={el.id} className={`weekDay ${day == el.id + 1 ? 'todayWeekDay' : ''}`}>{el.name}</button>
+    //     </>
+    //   )
+    // })
 
     const _hours = [
       { hour: "00:00", id: 0}, 
@@ -106,14 +158,13 @@ export default function Calendar() {
       return <div key={el.id} className='planBackgroundElement'>{el.hour}</div>
     })
 
-
     const events = [
-      { id: 0, start: '21:00', end: '21:30', elementText: 'zrobić zakupy2' },
-      { id: 1, start: '22:00', end: '23:00', elementText: 'zrobić zakupy' },
-      { id: 2, start: '12:00', end: '12:10', elementText: 'zrobić d' },
-      { id: 3, start: '7:00', end: '9:10', elementText: 'ugotować zupę' },
-      { id: 4, start: '7:00', end: '8:10', elementText: 'ugotować zupę' },
-      { id: 5, start: '7:30', end: '8:10', elementText: 'ugotować zupę' }
+      { id: 0, start: '21:00', end: '21:30', date: [6, 5, 2023], elementText: 'zrobić zakupy2' },
+      { id: 1, start: '22:00', end: '23:00', date: [6, 5, 2023], elementText: 'zrobić zakupy' },
+      { id: 2, start: '12:00', end: '12:10', date: [6, 5, 2023], elementText: 'zrobić d' },
+      { id: 3, start: '07:00', end: '09:10', date: [6, 5, 2023], elementText: 'ugotować zupę' },
+      { id: 4, start: '07:00', end: '08:10', date: [6, 5, 2023], elementText: 'ugotować zupę' },
+      { id: 5, start: '07:30', end: '08:10', date: [6, 5, 2023], elementText: 'ugotować zupę' }
     ]
 
     const _events = events.map(el => {
@@ -125,14 +176,43 @@ export default function Calendar() {
       }
 
       return(
-        <div key={el.id} className='event' style={{
+        el.date[0] == planDay[0] && el.date[1] == planDay[1] && el.date[2] == planDay[2] ?
+
+        (<div key={el.id} className='event' style={{
             height: `${end - start}px`, 
             transform: `translate(0, ${start}px)`,
             width: (`calc(calc(100% - 80px)/${(1 + otherEventsDuringThisEvent(el.start, el.end))})`),
             left: '65px'
           }}>
            <p>{end - start >= 30 ? el.elementText : ''}</p>
-        </div>
+        </div>)
+        
+        : null
+      )
+    })
+
+    const routineEvents = [
+      { id: 0, start: '07:30', end: '15:45', date: [6, 5, 2023], elementText: 'szkoła'}
+    ]
+
+    const _routineEvents = routineEvents.map(el => {
+      const start = parseInt(el.start.split(':')[0] * 60) + parseInt(el.start.split(':')[1])
+      const end = parseInt(el.end.split(':')[0] * 60) + parseInt(el.end.split(':')[1])
+
+      console.log(el.date, [day, month, year])
+      return(
+        el.date[0] == planDay[0] && el.date[1] == planDay[1] && el.date[2] == planDay[2] ? 
+
+        (<div key={el.id} className='routineEvent' style={{
+          height: `${end - start}px`,
+          width: `calc(100% - 80px)`,
+          transform: `translate(0, ${start}px)`,
+          left: '65px'
+        }}>
+          <p>{end - start >= 30 ? el.elementText : ''}</p>
+        </div>) 
+
+        : null
       )
     })
 
@@ -151,20 +231,23 @@ export default function Calendar() {
       return otherEvents
     }
 
+    function switchWeekDay(day, month, year) {
+      setPlanDay([day, month, year])
+    }
+
+
   return (
-    <>
-    <div className='calendarWeekDay'>
-        {weekDay}
-    </div>
-    <div className='calendarWeek'>
-        {week}
-    </div>
-    <div className='planContainer'>
-    <div className='planBackground'>{hours}</div>
-      <div className='plan'>
-        {_events}
+    <div className='calendarContainer'>
+      {/* <div className='calendarWeekDay'>{weekDay}</div> */}
+      <div className='calendarWeek'>{week}</div>
+
+      <div className='planContainer'>
+      <div className='planBackground'>{hours}</div>
+        <div className='plan'>
+          {_events}
+          {_routineEvents}
+        </div>
       </div>
     </div>
-    </>
   )
 }
